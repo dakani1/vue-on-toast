@@ -1,17 +1,19 @@
 <template>
   <div v-on:click="onClick(toast, $event)" v-bind:class="['toast', classes.typeClass]"
     v-on:mouseover="stopTimer(toast)" v-on:mouseout="restartTimer(toast)">
-    <i class="toaster-icon" v-bind:class="classes.iconClass"></i>
-    <div class="toast-content">
-      <div v-bind:class="classes.titleClass">{{toast.title}}</div>
-      <div v-bind:class="classes.bodyClass">
-        <component v-if="toast.bodyOutputType == bodyOutputType.Component" :is="toast.body"></component>
-        <div v-else-if="toast.bodyOutputType == bodyOutputType.TrustedHtml" v-html="toast.body"></div>
-        <div v-else-if="typeof toast.body === 'string'">{{toast.body}}</div>
+    <div class="toast-main">
+      <i class="toaster-icon" v-bind:class="classes.iconClass"></i>
+      <div class="toast-content">
+        <div v-bind:class="classes.titleClass">{{toast.title}}</div>
+        <div v-bind:class="classes.bodyClass">
+          <component v-if="toast.bodyOutputType == bodyOutputType.Component" :is="toast.body"></component>
+          <div v-else-if="toast.bodyOutputType == bodyOutputType.TrustedHtml" v-html="toast.body"></div>
+          <div v-else-if="typeof toast.body === 'string'">{{toast.body}}</div>
+        </div>
       </div>
-    </div>
-    <div class="toast-close-button" v-if="toast.showCloseButton" v-on:click="onClick(toast, $event, true)"
-      v-html="toast.toastConfig.closeHtml">
+      <div class="toast-close-button" v-if="toast.showCloseButton" v-on:click="onClick(toast, $event, true)"
+        v-html="toast.toastConfig.closeHtml">
+      </div>
     </div>
   </div>
 </template>
